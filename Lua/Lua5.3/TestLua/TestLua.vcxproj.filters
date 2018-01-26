@@ -32,6 +32,9 @@
     <ClCompile Include="TestLua.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="lminiz.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="main.lua">
