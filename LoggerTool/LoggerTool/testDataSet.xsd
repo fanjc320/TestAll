@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="testDataSet" targetNamespace="http://tempuri.org/testDataSet.xsd" xmlns:mstns="http://tempuri.org/testDataSet.xsd" xmlns="http://tempuri.org/testDataSet.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="testConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="testConnectionString (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.LoggerTool.Properties.Settings.GlobalReference.Default.testConnectionString" Provider="MySql.Data.MySqlClient" />
+        </Connections>
+        <Tables>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="officeTableAdapter" GeneratorDataComponentClassName="officeTableAdapter" Name="office" UserDataComponentName="officeTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="testConnectionString (Settings)" DbObjectName="test.office" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT `office_id`, `name`, `province`, `city`, `phone`, `post_code`, `address`, `status` FROM `office`</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings />
+            <Sources />
+          </TableAdapter>
+        </Tables>
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="testDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="True" msprop:Generator_DataSetName="testDataSet" msprop:Generator_UserDSName="testDataSet">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="office" msprop:Generator_TableClassName="officeDataTable" msprop:Generator_TableVarName="tableoffice" msprop:Generator_TablePropName="office" msprop:Generator_RowDeletingName="officeRowDeleting" msprop:Generator_RowChangingName="officeRowChanging" msprop:Generator_RowEvHandlerName="officeRowChangeEventHandler" msprop:Generator_RowDeletedName="officeRowDeleted" msprop:Generator_UserTableName="office" msprop:Generator_RowChangedName="officeRowChanged" msprop:Generator_RowEvArgName="officeRowChangeEvent" msprop:Generator_RowClassName="officeRow">
+          <xs:complexType>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
