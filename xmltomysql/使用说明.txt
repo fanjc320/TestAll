@@ -1,0 +1,21 @@
+读取excel表，导入到数据库中然后更新正式库
+此项目连接的是本地mysql
+如何想要连接sql，打开主窗口代码注释即可；把mysql.data.dll文件的引用删除即可；或者你重新建一个项目，
+只需要复制数据导入按钮点击事件里面的注释代码即可
+
+
+这个是在sql数据库中创建表代码
+CREATE TABLE [dbo].[test](
+	[日期] [datetime] NULL,
+	[车号] [nvarchar](255) NULL,
+	[加气量] [float] NULL,
+	[职员] [nvarchar](255) NULL,
+	[含税单价] [float] NULL,
+	[含税金额] [float] NULL,
+	[单价] [float] NULL,
+	[金额] [float] NULL,
+	[税额] [float] NULL,
+	[备注] [nvarchar](255) NULL,
+	[供应商] [nvarchar](255) NULL,
+	[ID] [int] NULL
+) ON [PRIMARY]
