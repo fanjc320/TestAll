@@ -1,0 +1,6 @@
+﻿  stdafx.cpp
+  dllmain.cpp
+  mydll.cpp
+    正在创建库 E:\TestProjs\ConsoleApplication1\Debug\mydll.lib 和对象 E:\TestProjs\ConsoleApplication1\Debug\mydll.exp
+  mydll.vcxproj -> E:\TestProjs\ConsoleApplication1\Debug\mydll.dll
+  mydll.vcxproj -> E:\TestProjs\ConsoleApplication1\Debug\mydll.pdb (Full PDB)
