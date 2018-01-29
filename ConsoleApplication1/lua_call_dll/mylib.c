@@ -1,97 +1,4 @@
-
-//int __declspec(dllexport) add(int a, int b)
-//{
-//	return a + b;
-//}
-
-//也行你看到的不是add，而是@ILT#$%^add(@$%) （我随便写个大概），
-//那么你的工程一定是C++工程。这样的DLL只能通过引导库(lib)来实现，LUA用不了。
-//为了能建立lua可以使用的库，必须在导出函数的最前面加上extern "C" （不能是__stdcall），所以此时的函数变成了：
-//.cpp文件下有用
-//extern "C" int __declspec(dllexport) add(int a, int b)
-//{
-//	return a + b;
-//}
-
-//还有一种常用的方法也可以得到extern的效果，那就是建立def文件，例如：
-//
-//LIBRARY  mylib
-//DESCRIPTION "Just for test"
-//VERSION 1.0
-//EXPORTS
-//add
-//
-//有了def，你就不需要再每个函数前加上extern “C”了。记得要在属性 / 连接器 / 输入 / 模块定义文件中输入def的文件名称。我们这个动态链接库以及lua.exe必须动态的连接lua.dll(lua5.2.dll)，而不能静态的链接，否则你会得到错误：
-
-
-//stack traceback :
-//[C] : ?
-//[C] : in function 'require'
-//test.lua : 1 : in main chunk
-//[C] : ?
-
-
-//#include <Windows.h>  
-//
-//extern "C" {
-//#include <lua.h>  
-//#include <lauxlib.h>  
-//#include <stdio.h>  
-//#include <stdlib.h>  
-//#include <stdarg.h>  
-//#include <lualib.h>  
-//#include <math.h>  
-//}
-//
-//static int mysin(lua_State *L)
-//{
-//	double d = luaL_checknumber(L, 1);
-//	lua_pushnumber(L, sin(d));
-//	return 1;
-//}
-//
-//static int l_printf(lua_State *L)
-//{
-//	const char * pPattern = luaL_checkstring(L, 1);
-//	const char * str = luaL_checkstring(L, 2);
-//	lua_pushnumber(L, printf(pPattern, str));
-//	return 1;
-//}
-//
-//static int l_MessageBox(lua_State *L)
-//{
-//	const char * sTitle = luaL_checkstring(L, 1);
-//	const char * sText = luaL_optstring(L, 2, "");
-//	//MessageBox(NULL, sTitle, sText, 0);
-//	MessageBox(NULL, L"title", L"sText", 0);
-//	return 1;
-//}
-//
-//static const struct luaL_Reg mylib[] =
-//{
-//	{ "mysin", mysin },
-//	{ "printf", l_printf },
-//	{ "messagebox", l_MessageBox },
-//	{ NULL, NULL }
-//};
-//
-//#  define luaL_newlib(L,libs) (\
-//        lua_createtable(L, 0, sizeof(libs)/sizeof(libs[0])), \
-//        luaL_register(L, NULL, libs))
-//
-//extern "C" int __declspec(dllexport) luaopen_mylib(lua_State *L)
-//{
-//	luaL_newlib(L, mylib);
-//	return 1;
-//}
-
-
-//extern "C" int __declspec(dllexport) luaopen_mylib1(lua_State *L)
-//{
-//	luaL_newlib(L, mylib);
-//	return 1;
-//}
-
+#define LUA_LIB
 #include <lua.h>
 #include <lauxlib.h>
 
@@ -154,8 +61,6 @@ static const char *luaL_tolstring(lua_State *L, int idx, size_t *len) {
 }
 #endif
 
-//------begin------------
-#pragma region OK
 static int Ladler32(lua_State *L) {
 	size_t len;
 	const char *s = luaL_optlstring(L, 1, NULL, &len);
@@ -272,13 +177,7 @@ static int Linflate(lua_State *L)
 	return lmz_decompress(L, TINFL_FLAG_PARSE_ZLIB_HEADER);
 }
 
-//------end
-#pragma endregion OK
-
-
-/*
------------reader
-*/
+/* zip reader */
 
 #define LMZ_ZIP_READER "miniz.ZipReader"
 
@@ -477,12 +376,163 @@ static void open_zipreader(lua_State *L) {
 	if (luaL_newmetatable(L, LMZ_ZIP_READER))
 		luaL_setfuncs(L, libs, 0);
 }
-/*
------------reader end
-*/
 
+/* zip writer */
 
+#define LMZ_ZIP_WRITER "miniz.ZipWriter"
 
+typedef struct lmz_zip_archive {
+	mz_zip_archive base;
+	int has_heap;
+} lmz_zip_archive;
 
+static int Lwriter___tostring(lua_State* L) {
+	mz_zip_archive *za = luaL_testudata(L, 1, LMZ_ZIP_WRITER);
+	if (za) lua_pushfstring(L, "miniz.ZipWriter: %p", za);
+	else luaL_tolstring(L, 1, NULL);
+	return 1;
+}
 
+static int Lzip_write_string(lua_State *L) {
+	size_t size_to_reserve_at_beginning = (size_t)luaL_optinteger(L, 1, 0);
+	size_t initial_allocation_size = (size_t)luaL_optinteger(L, 2, LUAL_BUFFERSIZE);
+	lmz_zip_archive* za = (lmz_zip_archive*)lua_newuserdata(L, sizeof(lmz_zip_archive));
+	memset(za, 0, sizeof(lmz_zip_archive));
+	za->has_heap = 1;
+	if (!mz_zip_writer_init_heap(&za->base,
+		size_to_reserve_at_beginning, initial_allocation_size))
+		return 0;
+	luaL_setmetatable(L, LMZ_ZIP_WRITER);
+	return 1;
+}
+
+static int Lzip_write_file(lua_State *L) {
+	const char *filename = luaL_checkstring(L, 1);
+	size_t size_to_reserve_at_beginning = (size_t)luaL_optinteger(L, 2, 0);
+	lmz_zip_archive* za = (lmz_zip_archive*)lua_newuserdata(L, sizeof(lmz_zip_archive));
+	memset(za, 0, sizeof(lmz_zip_archive));
+	if (!mz_zip_writer_init_file(&za->base, filename, size_to_reserve_at_beginning))
+		return 0;
+	luaL_setmetatable(L, LMZ_ZIP_WRITER);
+	return 1;
+}
+
+static int Lwriter_close(lua_State *L) {
+	mz_zip_archive *za = luaL_checkudata(L, 1, LMZ_ZIP_WRITER);
+	lua_pushboolean(L, mz_zip_writer_end(za));
+	return 1;
+}
+
+static int Lwriter_add_from_zip_reader(lua_State *L) {
+	mz_zip_archive *za = luaL_checkudata(L, 1, LMZ_ZIP_WRITER);
+	mz_zip_archive *src = luaL_checkudata(L, 2, LMZ_ZIP_READER);
+	mz_uint file_index = (mz_uint)luaL_checkinteger(L, 3) - 1;
+	if (!mz_zip_writer_add_from_zip_reader(za, src, file_index)) {
+		lua_pushnil(L);
+		lua_pushstring(L, "Failure to copy file between zips");
+		return 2;
+	}
+	return_self(L);
+}
+
+static int Lwriter_add_string(lua_State *L) {
+	mz_zip_archive *za = luaL_checkudata(L, 1, LMZ_ZIP_WRITER);
+	const char* path = luaL_checkstring(L, 2);
+	size_t len, comment_len;
+	const char* s = luaL_checklstring(L, 3, &len);
+	const char *comment = luaL_optlstring(L, 5, NULL, &comment_len);
+	mz_uint flags = (mz_uint)luaL_optinteger(L, 4, MZ_DEFAULT_LEVEL);
+	if (!mz_zip_writer_add_mem_ex(za, path, s, len,
+		comment, (mz_uint16)comment_len, flags, 0, 0)) {
+		lua_pushnil(L);
+		lua_pushstring(L, "Failure to add entry to zip");
+		return 2;
+	}
+	return_self(L);
+}
+
+static int Lwriter_add_file(lua_State *L) {
+	mz_zip_archive *za = luaL_checkudata(L, 1, LMZ_ZIP_WRITER);
+	const char* path = luaL_checkstring(L, 2);
+	const char* filename = luaL_optstring(L, 3, path);
+	mz_uint flags = (mz_uint)luaL_optinteger(L, 4, MZ_DEFAULT_LEVEL);
+	size_t len;
+	const char *comment = luaL_optlstring(L, 5, NULL, &len);
+	if (!mz_zip_writer_add_file(za, path, filename, comment, (mz_uint16)len, flags)) {
+		lua_pushnil(L);
+		lua_pushstring(L, "Failure to add entry to zip");
+		return 2;
+	}
+	return_self(L);
+}
+
+static int Lwriter_finalize(lua_State *L) {
+	lmz_zip_archive *za = (lmz_zip_archive*)luaL_checkudata(L, 1, LMZ_ZIP_WRITER);
+	if (za->has_heap) {
+		size_t len = 0;
+		void* s = NULL;
+		mz_bool result = mz_zip_writer_finalize_heap_archive(&za->base, &s, &len);
+		lua_pushlstring(L, s, len);
+		free(s);
+		if (!result) {
+			lua_pushstring(L, "Problem finalizing archive");
+			return 2;
+		}
+		return 1;
+	}
+	if (!mz_zip_writer_finalize_archive(&za->base)) {
+		lua_pushnil(L);
+		lua_pushstring(L, "Problem finalizing archive");
+		return 2;
+	}
+	return_self(L);
+}
+
+static void open_zipwriter(lua_State *L) {
+	luaL_Reg libs[] = {
+		{ "__gc", Lwriter_close },
+#define ENTRY(name) { #name, Lwriter_##name }
+		ENTRY(__tostring),
+		ENTRY(close),
+		ENTRY(add_from_zip_reader),
+		ENTRY(add_string),
+		ENTRY(add_file),
+		ENTRY(finalize),
+#undef  ENTRY
+		{ NULL, NULL }
+	};
+	if (luaL_newmetatable(L, LMZ_ZIP_WRITER)) {
+		luaL_setfuncs(L, libs, 0);
+		lua_pushvalue(L, -1);
+		lua_setfield(L, -2, "__index");
+	}
+}
+
+LUALIB_API int luaopen_miniz(lua_State *L) {
+	luaL_Reg libs[] = {
+		{ "new_reader", Lzip_read_file },
+		{ "new_writer", Lzip_write_string },
+#define ENTRY(name) { #name, L##name }
+		ENTRY(adler32),
+		ENTRY(crc32),
+		ENTRY(compress),
+		ENTRY(decompress),
+		ENTRY(inflate),
+		ENTRY(deflate),
+		ENTRY(zip_read_file),
+		ENTRY(zip_read_string),
+		ENTRY(zip_write_file),
+		ENTRY(zip_write_string),
+#undef  ENTRY
+		{ NULL, NULL }
+	};
+	open_zipreader(L);
+	open_zipwriter(L);
+	luaL_newlib(L, libs);
+	return 1;
+}
+
+/* win32cc: flags+='-s -O3 -mdll -DLUA_BUILD_AS_DLL -fno-strict-aliasing'
+* win32cc: libs+='-llua53' output='miniz.dll'
+* maccc: flags+='-O3 -shared -undefined dynamic_lookup' output='miniz.so' */
 

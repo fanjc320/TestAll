@@ -35,6 +35,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mydll", "mydll\mydll.vcxpro
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mycdll", "mycdll\mycdll.vcxproj", "{0B787939-A07C-4BD8-8067-659B49D820D6}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Tuple", "Tuple\Tuple.vcxproj", "{B96847F0-8794-4CD3-B294-9DCDB7B5DD24}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -171,6 +173,14 @@ Global
 		{0B787939-A07C-4BD8-8067-659B49D820D6}.Release|x64.Build.0 = Release|x64
 		{0B787939-A07C-4BD8-8067-659B49D820D6}.Release|x86.ActiveCfg = Release|Win32
 		{0B787939-A07C-4BD8-8067-659B49D820D6}.Release|x86.Build.0 = Release|Win32
+		{B96847F0-8794-4CD3-B294-9DCDB7B5DD24}.Debug|x64.ActiveCfg = Debug|x64
+		{B96847F0-8794-4CD3-B294-9DCDB7B5DD24}.Debug|x64.Build.0 = Debug|x64
+		{B96847F0-8794-4CD3-B294-9DCDB7B5DD24}.Debug|x86.ActiveCfg = Debug|Win32
+		{B96847F0-8794-4CD3-B294-9DCDB7B5DD24}.Debug|x86.Build.0 = Debug|Win32
+		{B96847F0-8794-4CD3-B294-9DCDB7B5DD24}.Release|x64.ActiveCfg = Release|x64
+		{B96847F0-8794-4CD3-B294-9DCDB7B5DD24}.Release|x64.Build.0 = Release|x64
+		{B96847F0-8794-4CD3-B294-9DCDB7B5DD24}.Release|x86.ActiveCfg = Release|Win32
+		{B96847F0-8794-4CD3-B294-9DCDB7B5DD24}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,7 +1,4 @@
-print("0000001");
---mylib = require("mylib")  
-print("0000000000000");
-local miniz = require "modulename"
+local miniz = require "miniz"
 print("0000001111111");
 local fs = require "path.fs"
 print("111111111111");
