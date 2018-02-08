@@ -9,8 +9,14 @@ volatile bool Master::m_stopEvent;
 createFileSingleton(Master);
 
 
+void HandlePlayerCount(ParamList& params)
+{
+	sLog.outDebug(" ", "playerCount :%d   sessionCount:%d", sWorld.GetPlayerCount(),sWorld.GetSessionCount());
+}
+
 Master::Master()
 {
+	m_CmdDispatcher.RegisterCommand("plrcount", HandlePlayerCount);
 }
 
 Master::~Master()
@@ -111,3 +117,7 @@ void Master::MainThreadLoop()
 	}
 	sWorld.Destory();
 }
+
+
+
+

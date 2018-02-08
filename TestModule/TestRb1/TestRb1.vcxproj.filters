@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Network">
+      <UniqueIdentifier>{142d0f2d-ee1c-4faa-8b96-aa7cf14224fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\outline">
+      <UniqueIdentifier>{45b927de-824a-4292-931e-044fe5a13484}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -33,12 +39,6 @@
     <ClInclude Include="RbConfig.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="src\RSession.h">
-      <Filter>源文件</Filter>
-    </ClInclude>
-    <ClInclude Include="src\RSocket.h">
-      <Filter>源文件</Filter>
-    </ClInclude>
     <ClInclude Include="src\RPlayer.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -47,6 +47,15 @@
     </ClInclude>
     <ClInclude Include="src\MessageDispatcher.h">
       <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RSocket.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RSession.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="src\outline\HandleCmd.h">
+      <Filter>源文件\outline</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -65,20 +74,23 @@
     <ClCompile Include="RbConfig.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\RSession.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\RSocket.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\RPlayer.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="src\InstanceMgr.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="src\RSession.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RPlayer.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
     <ClCompile Include="src\MessageDispatcher.cpp">
-      <Filter>源文件</Filter>
+      <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RSocket.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="src\outline\HandleCmd.cpp">
+      <Filter>源文件\outline</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -1,6 +1,7 @@
 local miniz = require "miniz"
 print("0000001111111");
-local fs = require "path.fs"
+--local fs = require "path.fs"
+local fs = require "lfs"
 print("111111111111");
 
 local za = miniz.zip_write_file "lua-miniz.zip"
@@ -25,9 +26,9 @@ print("2222222222222");
 
 local za = assert(miniz.zip_read_file "lua-miniz.zip")
 print(#za)
-for _, file in ipairs(za) do
-   print(file)
-end
+--for _, file in ipairs(za) do
+  --print(file)
+--end
 print(za:extract "test.lua")
 za:close()
 

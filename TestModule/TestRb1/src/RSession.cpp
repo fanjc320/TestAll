@@ -450,7 +450,7 @@ RPlayer* RSession::CreatePlayer(uint32 instanceId, PlayerInfo& info, RSession* s
 {
 	RPlayer* play = new RPlayer(instanceId, info, session);
 	if (play) {
-		//sWorld.GetControlMgr()->AddPlayerCount();
+		sWorld.AddPlayerCount();
 		return play;
 	}
 	return nullptr;
@@ -460,6 +460,7 @@ void RSession::DestoryPlayer()
 	if (m_player) {
 		delete m_player;
 		m_player = nullptr;
+		sWorld.DelPlayerCount();
 	}
 }
 

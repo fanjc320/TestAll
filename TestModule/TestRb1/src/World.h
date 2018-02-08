@@ -23,18 +23,16 @@ public:
 	bool ReloadLuaVM();
 	string GetUserOpenId(uint32 instanceId);
 	
-	/*机器人服务器instanceID*/
-	uint64 GetServerInstanceId();
-	void SetServerInstanceId(uint64 serverInstanceId);
 public:
-	
+	void AddPlayerCount();
+	void DelPlayerCount();
+	int GetPlayerCount();
+	int GetSessionCount();
 private:
 	void UpdateSession();
 	void BatchHandleCreate(uint32 ticket);
 	void CreateRobotSession(uint32 count);
 	void DestroyRobotSession();
-	void UpdateShowMemory(uint32 ticket);
-	void ShowMemoryInfo();
 
 private:
 	ThreadingFuncReactor m_FuncReactor;
@@ -55,6 +53,7 @@ private:
 
 private:
 	bool m_bOpenPerfor = false;
+	int m_playercount = 0;
 public:
 	atomic<TickInt> m_LastTick = 0;
 	uint32 m_MoveCount = 0;

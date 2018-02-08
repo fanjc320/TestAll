@@ -176,6 +176,7 @@
     <ClInclude Include="RbConfig.h" />
     <ClInclude Include="src\InstanceMgr.h" />
     <ClInclude Include="src\MessageDispatcher.h" />
+    <ClInclude Include="src\outline\HandleCmd.h" />
     <ClInclude Include="src\RPlayer.h" />
     <ClInclude Include="src\RSession.h" />
     <ClInclude Include="src\RSocket.h" />
@@ -188,6 +189,7 @@
     <ClCompile Include="RbConfig.cpp" />
     <ClCompile Include="src\InstanceMgr.cpp" />
     <ClCompile Include="src\MessageDispatcher.cpp" />
+    <ClCompile Include="src\outline\HandleCmd.cpp" />
     <ClCompile Include="src\RPlayer.cpp" />
     <ClCompile Include="src\RSession.cpp" />
     <ClCompile Include="src\RSocket.cpp" />

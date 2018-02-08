@@ -53,6 +53,7 @@ void World::Destory()
 
 }
 
+#pragma region ServerCfg
 ServerConf* World::GetServerCfg()
 {
 	return nullptr;
@@ -101,6 +102,7 @@ bool World::ReloadEnterCfg()
 	}
 	return true;
 }
+#pragma endregion ServerCfg
 
 bool World::ReloadLuaVM()
 {
@@ -111,6 +113,27 @@ string World::GetUserOpenId(uint32 instanceId)
 {
 	return to_string(instanceId);
 }
+
+#pragma region 外围功能
+void World::AddPlayerCount()
+{
+	m_playercount++;
+}
+
+void World::DelPlayerCount()
+{
+	m_playercount--;
+}
+int World::GetPlayerCount()
+{
+	return m_playercount;
+}
+int World::GetSessionCount()
+{
+	return m_sessionList.size();
+}
+#pragma endregion 外围功能
+
 
 void World::UpdateSession()
 {
@@ -155,7 +178,7 @@ void World::BatchHandleCreate(uint32 ticket)
 		{
 			return;
 		}
-		for (size_t i = 0; i < 100; i++)
+		for (size_t i = 0; i < 10; i++)
 		{
 			RSession* session = new RSession(++insid);
 			if (!session) {
@@ -177,13 +200,4 @@ void World::CreateRobotSession(uint32 count)
 void World::DestroyRobotSession()
 {
 
-}
-
-void World::UpdateShowMemory(uint32 ticket)
-{
-
-}
-
-void World::ShowMemoryInfo()
-{
 }

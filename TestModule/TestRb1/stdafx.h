@@ -122,6 +122,8 @@ Use_Ns_CrossGate
 //#include "../logonserver/LogonOpcodes.h"
 //
 //
+#include "outline/HandleCmd.h"
+
 #include "../common/DataDefine.h"
 #include "../Common/Opcodes.h"
 #include "../Common/ServerOpcode.h"
