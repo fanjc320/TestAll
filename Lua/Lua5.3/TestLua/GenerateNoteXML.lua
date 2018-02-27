@@ -1,4 +1,4 @@
---xmlHead = '<?xml version="1.0" encoding="utf-8" ?>\n'  
+xmlHead = '<?xml version="1.0" encoding="utf-8" ?>\n'  
 
 -- Open note file to wriet.  
 function openNoteFile(fileName)  
