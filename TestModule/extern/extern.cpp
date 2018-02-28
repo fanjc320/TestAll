@@ -2,6 +2,8 @@
 //
 
 #include "stdafx.h"
+#include <iostream>
+using namespace std;
 
 //c++多个源文件共用一个全局变量（extern 的用法）(2014 - 06 - 19 14:56 : 55)转载▼
 //标签： 股票	分类： C / C _Concept
@@ -49,6 +51,8 @@
 
 int main()
 {
+	string str;
+	cin >> str;
     return 0;
 }
 
