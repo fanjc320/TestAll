@@ -208,7 +208,7 @@ for k, v in ipairs(tabFiles) do
 print(k, v)
 end
  
- 
+ --[[
 猜测它的输出结果是什么呢？
  
 根据刚才的分析，它在 ipairs(tabFiles) 遍历中，当key=1时候value就是nil，所以直接跳出循环不输出任何值。
@@ -259,7 +259,7 @@ end
 
 
 
--- [[示例2.]] --
+-- [示例2.] --
 tbl = {"alpha", "beta", [3] = "uno", ["two"] = "dos"}
 
 for i,v in ipairs(tbl) do    --输出前三个
@@ -269,3 +269,4 @@ end
 for i,v in pairs(tbl) do    --全部输出
     print( tbl[i] )
 end
+--]]
