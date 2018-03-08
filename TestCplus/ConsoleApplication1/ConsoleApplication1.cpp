@@ -108,86 +108,99 @@ MyClass::~MyClass()
 
 extern void testExtern();
 
-int main()
-{
-	string test = "ssssss";
-	string& test1 = test;
-	MyClass cs(test);
-	/*MyClass cs0(cs);
-	MyClass cs1 = cs;*/
-	//cout << cs.i <<" "<<cs.name.c_str();//奇怪，为什么会报错
-
-	testExtern();
-
-	int t = -1;
-	cout <<"unsigned "<< unsigned(-1) << endl;
-
-	getchar();
-	return 0;
-}
-
 //int main()
 //{
-//	std::map<int, int> mymap;
-//	std::map<int, int>::iterator itlow, itup;
+//	string test = "ssssss";
+//	string& test1 = test;
+//	MyClass cs(test);
+//	/*MyClass cs0(cs);
+//	MyClass cs1 = cs;*/
+//	//cout << cs.i <<" "<<cs.name.c_str();//奇怪，为什么会报错
 //
-//	mymap[10] = 20;
-//	mymap[20] = 40;
-//	mymap[30] = 60;
-//	mymap[40] = 80;
-//	mymap[50] = 100;
+//	testExtern();
 //
-//	itlow = mymap.lower_bound(12);  // itlow points to b
-//	itup = mymap.upper_bound(10);   // itup points to e (not d!)
-//
-//	 
-//	if (itlow == mymap.end())--itlow;
-//	if (itup == mymap.end())--itup;
-//	//--itlow;
-//	std::cout << itlow->first << " == " << itup->first<<endl;
-//
-//	SkillLearnConditionMap_new mapnew;
-//
-//	for (int i=0;i<10;++i)
-//	{
-//		s_Key_Job_JobLv_LearnLv key;
-//		key.joblv = 1;
-//		key.LearnLv = 0;
-//		key.CateGoryId = i+100;
-//
-//		mapnew[key] = i+1000;
-//	}
-//
-//	for (auto it = mapnew.begin();it!=mapnew.end();++it)
-//	{
-//		cout << it->first.joblv << " hh " << it->first.CateGoryId <<"  "<< it->second << endl;
-//	}
-//
-//	/*for (int i = 0; i < 10; ++i)
-//	{
-//		s_Key_Job_JobLv_LearnLv key;
-//		key.joblv = 1;
-//		key.LearnLv = 0;
-//		key.CateGoryId = i + 100;
-//
-//		if (auto it = mapnew.find(key) != mapnew.end())
-//			cout << "cate " <<key.CateGoryId<<" "<< endl;
-//	}*/
-//
-//	for (int i = 0; i < 10; ++i)
-//	{
-//		s_Key_Job_JobLv_LearnLv key;
-//		key.joblv = 1;
-//		key.LearnLv = 0;
-//		key.CateGoryId = 100;
-//		auto it = mapnew.upper_bound(key);
-//		if ( it != mapnew.end())
-//			cout << "joblv " <<it->first.joblv<<" cateid: "<< it->first.CateGoryId << " Learnlv: "<<it->first.LearnLv << endl;
-//	}
+//	int t = -1;
+//	cout <<"unsigned "<< unsigned(-1) << endl;
 //
 //	getchar();
 //	return 0;
 //}
+
+int main()
+{
+	std::map<int, int> mymap;
+	std::map<int, int>::iterator itlow, itup;
+
+	mymap[10] = 20;
+	mymap[20] = 40;
+	mymap[30] = 60;
+	mymap[40] = 80;
+	mymap[50] = 100;
+
+	itlow = mymap.lower_bound(60);  // itlow points to b
+	if (itlow==mymap.begin())
+	{
+		cout << "" << endl;
+	}
+	--itlow;
+	if (itlow==mymap.begin())
+	{
+		cout << "" << endl;
+	}
+	if (itlow==mymap.end())
+	{
+		cout << "" << endl;
+	}
+	itup = mymap.upper_bound(20);   // itup points to e (not d!)
+
+	 
+	if (itlow == mymap.end())--itlow;
+	if (itup == mymap.end())--itup;
+	//--itlow;
+	std::cout << itlow->first << " == " << itup->first<<endl;
+
+	SkillLearnConditionMap_new mapnew;
+
+	for (int i=0;i<10;++i)
+	{
+		s_Key_Job_JobLv_LearnLv key;
+		key.joblv = 1;
+		key.LearnLv = 0;
+		key.CateGoryId = i+100;
+
+		mapnew[key] = i+1000;
+	}
+
+	for (auto it = mapnew.begin();it!=mapnew.end();++it)
+	{
+		cout << it->first.joblv << " hh " << it->first.CateGoryId <<"  "<< it->second << endl;
+	}
+
+	/*for (int i = 0; i < 10; ++i)
+	{
+		s_Key_Job_JobLv_LearnLv key;
+		key.joblv = 1;
+		key.LearnLv = 0;
+		key.CateGoryId = i + 100;
+
+		if (auto it = mapnew.find(key) != mapnew.end())
+			cout << "cate " <<key.CateGoryId<<" "<< endl;
+	}*/
+
+	for (int i = 0; i < 10; ++i)
+	{
+		s_Key_Job_JobLv_LearnLv key;
+		key.joblv = 1;
+		key.LearnLv = 0;
+		key.CateGoryId = 100;
+		auto it = mapnew.upper_bound(key);
+		if ( it != mapnew.end())
+			cout << "joblv " <<it->first.joblv<<" cateid: "<< it->first.CateGoryId << " Learnlv: "<<it->first.LearnLv << endl;
+	}
+
+	getchar();
+	return 0;
+}
 
 //int main()
 //{

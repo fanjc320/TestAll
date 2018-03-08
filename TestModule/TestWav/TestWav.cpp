@@ -8,6 +8,10 @@
 #include <cmath>
 #include "string.h"
 //#include "mem.h"
+#include "mmsystem.h"
+#include "windows.h"
+#pragma  comment(lib,"winmm.lib")
+
 
 #include <conio.h>
 
@@ -101,21 +105,59 @@ void WavReader(const char* fileName, const char* fileToSave)
 	fclose(fout);
 }
 
+//BOOL PlayResource(LPSTR lpName)
+//{
+//	BOOL bRtn;
+//	LPSTR lpRes;
+//	HANDLE hResInfo, hRes;
+//
+//	// Find the WAVE resource. 
+//
+//	hResInfo = FindResource(hInst, lpName, "WAVE");
+//	if (hResInfo == NULL)
+//		return FALSE;
+//
+//	// Load the WAVE resource. 
+//
+//	hRes = LoadResource(hInst, hResInfo);
+//	if (hRes == NULL)
+//		return FALSE;
+//
+//	// Lock the WAVE resource and play it. 
+//
+//	lpRes = LockResource(hRes);
+//	if (lpRes != NULL) {
+//		bRtn = sndPlaySound(lpRes, SND_MEMORY | SND_SYNC |
+//			SND_NODEFAULT);
+//		UnlockResource(hRes);
+//	}
+//	else
+//		bRtn = 0;
+//
+//	// Free the WAVE resource and return success or failure. 
+//
+//	FreeResource(hRes);
+//	return bRtn;
+//}
+
+int g_state = 0;//0,play ,1,random
+
 int main()
 {
 	char ch;
 	while (ch = _getch())
-	{ 
-		KeyWave(ch);		  
+	{
+		KeyWave(ch);
 	}
+	
 
 	//WavReader("E:/res/1.wav", "list.dat");
 	//bool rst1 = PlaySound(L"E:\\res\\1.wav", NULL, SND_FILENAME | SND_ASYNC | SND_NOSTOP);
-	////bool rst2 = sndPlaySound(L"E:\res\2.wav", SND_ASYNC | SND_NODEFAULT); //²¥·Å
-	//bool rst2 = sndPlaySound(L"E:\\res\\2.wav", SND_SYNC | SND_NODEFAULT); //²¥·Å
-	//std::cout << "rst1 " << rst1 << "rst2 " << rst2 << endl;
 
-	PlaySound(TEXT("F:\\27.wav"), NULL, SND_FILENAME | SND_ASYNC);
+	
+	PlaySound(TEXT("E:\\res\\40.wav"), NULL, SND_FILENAME | SND_ASYNC);
+	PlaySound(TEXT("E:\\res\\46.wav"), NULL, SND_FILENAME | SND_ASYNC);
+	PlaySound("50.wav", NULL, SND_RESOURCE | SND_ASYNC);
 
 	GetLastError();
 	while (1) {}
